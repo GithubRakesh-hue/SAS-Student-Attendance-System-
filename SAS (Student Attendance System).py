@@ -1,189 +1,200 @@
-students={101:'Aarav',102:'Priya',103:'Rohit',104:'Sneha'}
+while True:
 
-attendance={'01-05-2026':{101:'P',102:'P',103:'P',104:'P'},
-           '02-05-2026':{101:'P',102:'A',103:'A',104:'P'},
-           '03-05-2026':{101:'P',102:'A',103:'P',104:'P'}}
+    print("\n")
+    print("="*55)
+    print("      SAS STUDENT ATTENDANCE SYSTEM")
+    print("="*55)
+    print("1. Display All Students")
+    print("2. Mark Attendance")
+    print("3. View Attendance")
+    print("4. Total Present Students")
+    print("5. Total Absent Students")
+    print("6. Attendance Percentage of Student")
+    print("7. Student Attendance Report")
+    print("8. Students Above 75% Attendance")
+    print("9. Top Attendance Student")
+    print("0. Exit")
+    print("="*55)
 
+    choice = input("Enter Your Choice : ")
 
+    if choice == '1':
 
+        print("\n----- STUDENT LIST -----")
+        for roll,name in students.items():
+            print(f"Roll No : {roll} | Name : {name}")
 
+    elif choice == '2':
 
-#1] display all students
-# def display():
-#     for i , j in students.items():
-#         print(i,j)
+        date=input("Enter the Date : ")
+        attendance[date]={}
 
-# display()
+        for roll,name in students.items():
+            mark=input(f'{name} (P/A): ')
+            attendance[date][roll]=mark.upper()
 
+        print("Attendance Marked Successfully")
 
+    elif choice == '3':
 
+        date=input("Enter the Date (dd-mm-yyyy): ")
 
-#2] Mark attendence
-# def mark_attedance():
-#     date=input("Enter the Date : ")
-#     attendance[date]={}
+        if date in attendance:
 
-#     for roll,name in students.items():
-#         mark=input(f'{name} (P/A): ')
-#         attendance[date][roll]=mark.upper()
-#     print(attendance)
+            print(f"\nAttendance for {date}")
 
-# mark_attedance()
+            for roll,status in attendance[date].items():
+                print(f"Roll No : {roll} | Status : {status}")
 
+        else:
+            print("Date Not Found")
 
+    elif choice == '4':
 
-# 3] view attendance
-# def display():
-#     date=input("Enter the data (formate : dd-mm-yyyy): ")
-#     if date in attendance:
-#         for roll,name in attendance[date].items():
-#             print(roll,name)
-#     else:
-#         print('Date not found in database')
+        date=input("Enter the Date (dd-mm-yyyy): ")
 
-# display()
+        if date in attendance:
 
+            count=0
 
-#4] total present student in specific date
-# def total():
-#     date=input("Enter the date (formate: dd-mm-yyyy) : ")
-#     if date in attendance:
-#         count=0
-#         for i in attendance[date].values():
-#             if i=='P':
-#                 count+=1
-#         print(f"Total no. of students present are : {count}")
-#     else:
-#         print("Plz try with another date")
-        
-# total()
+            for status in attendance[date].values():
 
+                if status=='P':
+                    count+=1
 
-#5] total absent student in specific date
-# def total():
-#     date=input("Enter the date (formate: dd-mm-yyyy) : ")
-#     if date in attendance:
-#         count=0
-#         for i in attendance[date].values():
-#             if i=='A':
-#                 count+=1
-#         print(f"Total no. of students absent are : {count}")
-#     else:
-#         print("Plz try with another date")
-        
-# total()
+            print(f"Total Present Students : {count}")
 
-# #6] attendance percentage of student
-# def att_per_st():
-#     roll=int(input("Enter the roll number of student : "))
-#     if roll in students:
-#         present=0
-#         for i in attendance.values():
+        else:
+            print("Date Not Found")
 
-#             for a,b, in i.items():
+    elif choice == '5':
 
-#                 if a == roll:
-#                     if b == 'P':
-#                         present+=1
-#         per=present/len(attendance)*100
-#         print(per)
+        date=input("Enter the Date (dd-mm-yyyy): ")
 
+        if date in attendance:
 
-#     else:
-#         print("Student not found in database")
+            count=0
 
-# att_per_st()
+            for status in attendance[date].values():
 
+                if status=='A':
+                    count+=1
 
+            print(f"Total Absent Students : {count}")
 
+        else:
+            print("Date Not Found")
 
-#7] student attendance report
-# def report():
-#     print('--------------------------------------------------------------------------------------')
-#     print('|    ROLL NO     |   NAME    |   PRESENT   |   ABSENT    |   ATTENDANCE PERCENTAGE   |')
-#     print('--------------------------------------------------------------------------------------')
-#     for id,name in students.items():
+    elif choice == '6':
 
-#         present=0
-#         absent=0
+        roll=int(input("Enter Roll Number : "))
 
-#         for data in attendance.values():
-        
-#             for roll,presenty in data.items():
+        if roll in students:
 
-#                 if roll == id:
-                    
-#                     if presenty=='P':
-                        
-#                         present+=1
-                    
-#                     else:
+            present=0
 
-#                         absent+=1
+            for data in attendance.values():
 
-#                     per = round ((present / len(attendance)) *100)
+                for r,status in data.items():
 
-#         print(f"|     {id}        |   {name}   |      {present}      |      {absent}      |              {per} %         |")
-#     print('--------------------------------------------------------------------------------------')
-# report()
-
-
-
-
-#8] students below 75 % attendance
-# def policy(req_attendance):
-
-#     dic={}
-#     for id,name in students.items():
-
-#         present=0
-#         for data in attendance.values():
-
-#             for roll, presenty in data.items():
-                
-#                 if roll == id :
-#                     if presenty =='P':
-#                         present+=1
-
-#         per=round((present/len(attendance))*100)
-#         dic[id]=per
-#     print(f'students roll no. with attendance percentage ----- {dic}')
-
-#     for roll,percentage in dic.items():
-
-#         if percentage >= req_attendance:
-
-#             print(f' Name : {students[roll]} , Roll No. : {roll} , Attendence : {percentage}')
-
-# policy(75)
-
-
-
-
-#9] top attendance student 
-
-def top():
-    dic={}
-    for roll,name in students.items():
-        present=0
-        for data in attendance.values():
-            
-            for id,presenty in data.items():
-
-                if id == roll:
-                    if presenty=='P':
+                    if r==roll and status=='P':
                         present+=1
 
- 
-        per=round((present/len(attendance))*100)
-        dic[roll]=per
-    
-    
-    topper=max(dic.values())
-    
+            per=(present/len(attendance))*100
 
-    for roll,percentage in dic.items():
-        if percentage==topper :
-            print(f'Name : {students[roll]} , roll : {roll}, per = {percentage}')
+            print(f"Student Name : {students[roll]}")
+            print(f"Attendance Percentage : {round(per,2)} %")
 
-top()
+        else:
+            print("Student Not Found")
+
+    elif choice == '7':
+
+        print('-'*90)
+        print('| ROLL NO | NAME | PRESENT | ABSENT | ATTENDANCE % |')
+        print('-'*90)
+
+        for id,name in students.items():
+
+            present=0
+            absent=0
+
+            for data in attendance.values():
+
+                for roll,presenty in data.items():
+
+                    if roll==id:
+
+                        if presenty=='P':
+                            present+=1
+                        else:
+                            absent+=1
+
+            per=round((present/len(attendance))*100)
+
+            print(f"| {id} | {name} | {present} | {absent} | {per}% |")
+
+        print('-'*90)
+
+    elif choice == '8':
+
+        print("\nStudents Having Attendance Above 75%")
+
+        dic={}
+
+        for id,name in students.items():
+
+            present=0
+
+            for data in attendance.values():
+
+                for roll,presenty in data.items():
+
+                    if roll==id and presenty=='P':
+                        present+=1
+
+            per=round((present/len(attendance))*100)
+            dic[id]=per
+
+        for roll,percentage in dic.items():
+
+            if percentage>=75:
+
+                print(f"Name : {students[roll]} | Roll No : {roll} | Attendance : {percentage}%")
+
+    elif choice == '9':
+
+        dic={}
+
+        for roll,name in students.items():
+
+            present=0
+
+            for data in attendance.values():
+
+                for id,presenty in data.items():
+
+                    if id==roll and presenty=='P':
+                        present+=1
+
+            per=round((present/len(attendance))*100)
+            dic[roll]=per
+
+        topper=max(dic.values())
+
+        print("\nTop Attendance Student")
+
+        for roll,percentage in dic.items():
+
+            if percentage==topper:
+
+                print(f"Name : {students[roll]} | Roll No : {roll} | Attendance : {percentage}%")
+
+    elif choice == '0':
+
+        print("\nThank You For Using SAS Student Attendance System")
+        break
+
+    else:
+
+        print("Invalid Choice! Please Try Again.")
